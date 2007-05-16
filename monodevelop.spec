@@ -1,7 +1,7 @@
 %define name monodevelop
 %define version 0.13.1
 %define svn 1949
-%define release %mkrel 2
+%define release %mkrel 3
 %define gtksharp 1.9.5
 %define gtksourceview 0.10
 %define gecko 0.10
@@ -20,6 +20,8 @@ Release: %{release}
 Source: http://go-mono.com/sources/monodevelop/%{name}-%{version}.tar.bz2
 Patch: monodevelop-0.9-xvt.patch
 Patch1: monodevelop-0.12-firefox.patch
+#gw #30828: use libapr1 by default
+Patch2: monodevelop-0.13.1-noapr0.patch
 URL: http://www.monodevelop.com/
 License: GPL
 Group: Development/Other
@@ -62,6 +64,7 @@ It was originally a port of SharpDevelop 0.98.
 %setup -q
 %patch -p1 -b .xvt
 %patch1 -p1 -b .firefox
+%patch2 -p1 -b .noapr0
 
 %build
 ./configure --prefix=%_prefix --libdir=%_libdir --enable-java --enable-versioncontrol --enable-boo --enable-aspnet --enable-subversion --enable-aspnetedit
@@ -136,5 +139,3 @@ mv %buildroot%_datadir/locale/ja_JP %buildroot%_datadir/locale/ja
 
 %clean
 rm -rf $RPM_BUILD_ROOT
-
-
