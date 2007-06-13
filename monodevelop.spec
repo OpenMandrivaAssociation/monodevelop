@@ -1,7 +1,7 @@
 %define name monodevelop
-%define version 0.13.1
+%define version 0.14
 %define svn 1949
-%define release %mkrel 3
+%define release %mkrel 1
 %define gtksharp 1.9.5
 %define gtksourceview 0.10
 %define gecko 0.10
@@ -21,7 +21,7 @@ Source: http://go-mono.com/sources/monodevelop/%{name}-%{version}.tar.bz2
 Patch: monodevelop-0.9-xvt.patch
 Patch1: monodevelop-0.12-firefox.patch
 #gw #30828: use libapr1 by default
-Patch2: monodevelop-0.13.1-noapr0.patch
+Patch2: monodevelop-0.14-noapr0.patch
 URL: http://www.monodevelop.com/
 License: GPL
 Group: Development/Other
@@ -42,7 +42,7 @@ BuildRequires: gecko-sharp2 >= %gecko
 BuildRequires: gtksourceview-sharp >= %gtksourceview
 BuildRequires: gnome-sharp2 >= %gtksharp
 BuildRequires: glade-sharp2 >= %gtksharp
-BuildRequires: jscall-sharp zip
+#BuildRequires: jscall-sharp zip
 BuildRequires: monodoc >= %monodoc
 BuildRequires: mono-data-sqlite
 #BuildRequires: libmono-debugger-devel >= 0.12
@@ -67,7 +67,8 @@ It was originally a port of SharpDevelop 0.98.
 %patch2 -p1 -b .noapr0
 
 %build
-./configure --prefix=%_prefix --libdir=%_libdir --enable-java --enable-versioncontrol --enable-boo --enable-aspnet --enable-subversion --enable-aspnetedit
+./configure --prefix=%_prefix --libdir=%_libdir --enable-java --enable-versioncontrol --enable-boo --enable-aspnet --enable-subversion 
+#--enable-aspnetedit
 #--enable-nemerle 
 #--enable-debugger
 make
@@ -128,7 +129,7 @@ mv %buildroot%_datadir/locale/ja_JP %buildroot%_datadir/locale/ja
 %{_bindir}/monodevelop
 %{_menudir}/%{name}
 %{_prefix}/lib/monodevelop/
-%_libdir/firefox-%mozver/chrome/aspdesigner.manifest
+#%_libdir/firefox-%mozver/chrome/aspdesigner.manifest
 %{_datadir}/applications/monodevelop.desktop
 %{_datadir}/mime/packages/monodevelop.xml
 %{_datadir}/pixmaps/monodevelop.png
