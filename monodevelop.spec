@@ -1,7 +1,7 @@
 %define name monodevelop
-%define version 0.14
+%define version 0.15
 %define svn 1949
-%define release %mkrel 3
+%define release %mkrel 1
 %define gtksharp 1.9.5
 %define gtksourceview 0.10
 %define gecko 0.10
@@ -109,7 +109,6 @@ ln -s %_datadir/pixmaps/%name.png %buildroot%_liconsdir/
 convert -scale 32x32 %name.png %buildroot%_iconsdir/%name.png
 convert -scale 16x16 %name.png %buildroot%_miconsdir/%name.png
 
-mv %buildroot%_datadir/locale/ja_JP %buildroot%_datadir/locale/ja
 %find_lang %name
 
 %post
