@@ -1,7 +1,7 @@
 %define name monodevelop
 %define version 0.15
 %define svn 1949
-%define release %mkrel 1
+%define release %mkrel 2
 %define gtksharp 1.9.5
 %define gtksourceview 0.10
 %define gecko 0.10
@@ -22,6 +22,9 @@ Patch: monodevelop-0.9-xvt.patch
 Patch1: monodevelop-0.12-firefox.patch
 #gw #30828: use libapr1 by default
 Patch2: monodevelop-0.14-noapr0.patch
+#gw from svn: fix build with new boo
+Patch3: monodevelop-85179-new-boo.patch
+Patch4: monodevelop-desktop-entry.patch
 URL: http://www.monodevelop.com/
 License: GPL
 Group: Development/Other
@@ -42,7 +45,7 @@ BuildRequires: gecko-sharp2 >= %gecko
 BuildRequires: gtksourceview-sharp >= %gtksourceview
 BuildRequires: gnome-sharp2 >= %gtksharp
 BuildRequires: glade-sharp2 >= %gtksharp
-#BuildRequires: jscall-sharp zip
+BuildRequires: jscall-sharp zip
 BuildRequires: monodoc >= %monodoc
 BuildRequires: mono-data-sqlite
 #BuildRequires: libmono-debugger-devel >= 0.12
@@ -50,7 +53,7 @@ BuildRequires: apache-mod_mono
 BuildRequires: mozilla-firefox-devel
 BuildRequires: perl-XML-Parser
 BuildRequires: ImageMagick
-BuildRequires: desktop-file-utils
+#BuildRequires: desktop-file-utils
 BuildRoot: %{_tmppath}/%{name}-%{version}-buildroot
 Requires(post): desktop-file-utils shared-mime-info
 Requires(postun): desktop-file-utils shared-mime-info
@@ -65,10 +68,12 @@ It was originally a port of SharpDevelop 0.98.
 %patch -p1 -b .xvt
 %patch1 -p1 -b .firefox
 %patch2 -p1 -b .noapr0
+%patch3 -p2
+%patch4 -p1
+cp %_prefix/lib/jscall-sharp/* Extras/AspNetEdit/libs/
 
 %build
-./configure --prefix=%_prefix --libdir=%_libdir --enable-java --enable-versioncontrol --enable-boo --enable-aspnet --enable-subversion 
-#--enable-aspnetedit
+./configure --prefix=%_prefix --libdir=%_libdir --enable-java --enable-versioncontrol --enable-boo --enable-aspnet --enable-subversion --enable-aspnetedit
 #--enable-nemerle 
 #--enable-debugger
 make
@@ -96,12 +101,6 @@ needs="x11" \
 icon="monodevelop.png" \
 startup_notify="yes" xdg="true"
 EOF
-desktop-file-install --vendor="" \
-  --remove-category="Application" \
-  --add-category="IDE" \
-  --add-category="X-MandrivaLinux-MoreApplications-Development-DevelopmentEnvironments" \
-  --dir $RPM_BUILD_ROOT%{_datadir}/applications $RPM_BUILD_ROOT%{_datadir}/applications/*
-
 
 #icons
 mkdir -p %buildroot{%_liconsdir,%_iconsdir,%_miconsdir}
@@ -110,6 +109,8 @@ convert -scale 32x32 %name.png %buildroot%_iconsdir/%name.png
 convert -scale 16x16 %name.png %buildroot%_miconsdir/%name.png
 
 %find_lang %name
+
+ln -sf %_prefix/lib/jscall-sharp/jscall.dll  %buildroot%{_prefix}/lib/monodevelop/AddIns/AspNetEdit
 
 %post
 %update_mime_database
@@ -128,7 +129,7 @@ convert -scale 16x16 %name.png %buildroot%_miconsdir/%name.png
 %{_bindir}/monodevelop
 %{_menudir}/%{name}
 %{_prefix}/lib/monodevelop/
-#%_libdir/firefox-%mozver/chrome/aspdesigner.manifest
+%_libdir/firefox-%mozver/chrome/aspdesigner.manifest
 %{_datadir}/applications/monodevelop.desktop
 %{_datadir}/mime/packages/monodevelop.xml
 %{_datadir}/pixmaps/monodevelop.png
