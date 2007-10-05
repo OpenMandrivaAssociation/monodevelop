@@ -1,7 +1,7 @@
 %define name monodevelop
-%define version 0.15
+%define version 0.16
 %define svn 1949
-%define release %mkrel 2
+%define release %mkrel 1
 %define gtksharp 1.9.5
 %define gtksourceview 0.10
 %define gecko 0.10
@@ -18,12 +18,9 @@ Name: %{name}
 Version: %{version}
 Release: %{release}
 Source: http://go-mono.com/sources/monodevelop/%{name}-%{version}.tar.bz2
-Patch: monodevelop-0.9-xvt.patch
-Patch1: monodevelop-0.12-firefox.patch
+Patch1: monodevelop-0.16-firefox.patch
 #gw #30828: use libapr1 by default
 Patch2: monodevelop-0.14-noapr0.patch
-#gw from svn: fix build with new boo
-Patch3: monodevelop-85179-new-boo.patch
 Patch4: monodevelop-desktop-entry.patch
 URL: http://www.monodevelop.com/
 License: GPL
@@ -36,6 +33,9 @@ Requires: monodoc >= %monodoc
 Requires: shared-mime-info
 Requires: libmozilla-firefox = %mozver
 Requires: ikvm
+Requires: xterm
+#gw this is dllimported http://qa.mandriva.com/show_bug.cgi?id=34514
+Requires: %mklibname svn 0
 BuildRequires: boo >= 0.7.6
 BuildRequires: ikvm
 # gw our nemerle is too old
@@ -45,11 +45,11 @@ BuildRequires: gecko-sharp2 >= %gecko
 BuildRequires: gtksourceview-sharp >= %gtksourceview
 BuildRequires: gnome-sharp2 >= %gtksharp
 BuildRequires: glade-sharp2 >= %gtksharp
-BuildRequires: jscall-sharp zip
+BuildRequires: zip
 BuildRequires: monodoc >= %monodoc
 BuildRequires: mono-data-sqlite
 #BuildRequires: libmono-debugger-devel >= 0.12
-BuildRequires: apache-mod_mono
+BuildRequires: xsp
 BuildRequires: mozilla-firefox-devel
 BuildRequires: perl-XML-Parser
 BuildRequires: ImageMagick
@@ -65,12 +65,9 @@ It was originally a port of SharpDevelop 0.98.
 
 %prep
 %setup -q
-%patch -p1 -b .xvt
 %patch1 -p1 -b .firefox
 %patch2 -p1 -b .noapr0
-%patch3 -p2
 %patch4 -p1
-cp %_prefix/lib/jscall-sharp/* Extras/AspNetEdit/libs/
 
 %build
 ./configure --prefix=%_prefix --libdir=%_libdir --enable-java --enable-versioncontrol --enable-boo --enable-aspnet --enable-subversion --enable-aspnetedit
@@ -110,8 +107,6 @@ convert -scale 16x16 %name.png %buildroot%_miconsdir/%name.png
 
 %find_lang %name
 
-ln -sf %_prefix/lib/jscall-sharp/jscall.dll  %buildroot%{_prefix}/lib/monodevelop/AddIns/AspNetEdit
-
 %post
 %update_mime_database
 %update_desktop_database
@@ -130,6 +125,7 @@ ln -sf %_prefix/lib/jscall-sharp/jscall.dll  %buildroot%{_prefix}/lib/monodevelo
 %{_menudir}/%{name}
 %{_prefix}/lib/monodevelop/
 %_libdir/firefox-%mozver/chrome/aspdesigner.manifest
+%_mandir/man1/mdtool.1*
 %{_datadir}/applications/monodevelop.desktop
 %{_datadir}/mime/packages/monodevelop.xml
 %{_datadir}/pixmaps/monodevelop.png
