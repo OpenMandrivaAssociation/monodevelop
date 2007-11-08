@@ -1,7 +1,7 @@
 %define name monodevelop
-%define version 0.16
+%define version 0.17
 %define svn 1949
-%define release %mkrel 4
+%define release %mkrel 1
 %define gtksharp 1.9.5
 %define gtksourceview 0.10
 %define gecko 0.10
@@ -19,8 +19,6 @@ Version: %{version}
 Release: %{release}
 Source: http://go-mono.com/sources/monodevelop/%{name}-%{version}.tar.bz2
 Patch1: monodevelop-0.16-firefox.patch
-#gw #30828: use libapr1 by default
-Patch2: monodevelop-0.14-noapr0.patch
 Patch4: monodevelop-desktop-entry.patch
 URL: http://www.monodevelop.com/
 License: GPL
@@ -66,7 +64,6 @@ It was originally a port of SharpDevelop 0.98.
 %prep
 %setup -q
 %patch1 -p1 -b .firefox
-%patch2 -p1 -b .noapr0
 %patch4 -p1
 
 %build
