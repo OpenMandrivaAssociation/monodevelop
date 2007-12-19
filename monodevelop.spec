@@ -1,10 +1,9 @@
 %define name monodevelop
-%define version 0.17
+%define version 0.18
 %define svn 1949
-%define release %mkrel 2
+%define release %mkrel 1
 %define gtksharp 1.9.5
 %define gtksourceview 0.10
-%define gecko 0.10
 %define monodoc 1.0
 %if %mdkversion >= 200600
 %define pkgconfigdir %_datadir/pkgconfig
@@ -23,30 +22,21 @@ Patch4: monodevelop-desktop-entry.patch
 URL: http://www.monodevelop.com/
 License: GPL
 Group: Development/Other
-Requires: gecko-sharp2 >= %gecko
 Requires: gtksourceview-sharp >= %gtksourceview
 Requires: gnome-sharp2 >= %gtksharp
 Requires: glade-sharp2 >= %gtksharp
 Requires: monodoc >= %monodoc
 Requires: shared-mime-info
 Requires: libmozilla-firefox = %mozver
-Requires: ikvm
 Requires: xterm
 #gw this is dllimported http://qa.mandriva.com/show_bug.cgi?id=34514
 Requires: %mklibname svn 0
-BuildRequires: boo >= 0.7.6
-BuildRequires: ikvm
-# gw our nemerle is too old
-#BuildRequires: nemerle
+BuildRequires:	mono-addins
 BuildRequires: mono-devel
-BuildRequires: gecko-sharp2 >= %gecko
 BuildRequires: gtksourceview-sharp >= %gtksourceview
 BuildRequires: gnome-sharp2 >= %gtksharp
 BuildRequires: glade-sharp2 >= %gtksharp
-BuildRequires: zip
 BuildRequires: monodoc >= %monodoc
-BuildRequires: mono-data-sqlite
-#BuildRequires: libmono-debugger-devel >= 0.12
 BuildRequires: xsp
 BuildRequires: mozilla-firefox-devel
 BuildRequires: perl-XML-Parser
@@ -66,14 +56,12 @@ It was originally a port of SharpDevelop 0.98.
 %patch4 -p1
 
 %build
-./configure --prefix=%_prefix --libdir=%_libdir --enable-java --enable-versioncontrol --enable-boo --enable-aspnet --enable-subversion --enable-aspnetedit
-#--enable-nemerle 
-#--enable-debugger
+./configure --prefix=%_prefix --libdir=%_libdir --enable-versioncontrol --enable-aspnet --enable-subversion --enable-aspnetedit
 make
 
 %install
 rm -rf $RPM_BUILD_ROOT %name.lang
-mkdir -p %{buildroot}/`monodoc --get-sourcesdir` %buildroot%_libdir/firefox-%mozver/chrome
+mkdir -p %{buildroot}/`monodoc --get-sourcesdir`
 %makeinstall_std UPDATE_MIME_DB="#" pkgconfigdir=%pkgconfigdir packagedir=%buildroot%_prefix/lib/monodevelop/AddIns/AspNetEdit MOZILLA_HOME=%buildroot%_libdir/firefox-%mozver/
 #gw fix mozilla-firefox directory
 perl -pi -e "s^xMOZVERx^%mozver^g" %buildroot%_bindir/monodevelop
@@ -120,12 +108,12 @@ convert -scale 16x16 %name.png %buildroot%_miconsdir/%name.png
 %{_bindir}/monodevelop
 %{_menudir}/%{name}
 %{_prefix}/lib/monodevelop/
-%_libdir/firefox-%mozver/chrome/aspdesigner.manifest
 %_mandir/man1/mdtool.1*
 %{_datadir}/applications/monodevelop.desktop
 %{_datadir}/mime/packages/monodevelop.xml
 %{_datadir}/pixmaps/monodevelop.png
 %pkgconfigdir/monodevelop.pc
+%pkgconfigdir/monodevelop-core-addins.pc
 %_liconsdir/%name.png
 %_iconsdir/%name.png
 %_miconsdir/%name.png
