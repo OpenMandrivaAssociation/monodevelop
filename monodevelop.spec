@@ -42,6 +42,7 @@ BuildRequires: mozilla-firefox-devel
 BuildRequires: perl-XML-Parser
 BuildRequires: ImageMagick
 BuildRequires: desktop-file-utils
+BuildRoot: %{_tmppath}/%{name}-%{version}-buildroot
 Requires(post): desktop-file-utils shared-mime-info
 Requires(postun): desktop-file-utils shared-mime-info
 
