@@ -1,5 +1,5 @@
 %define name monodevelop
-%define version 0.18
+%define version 0.18.1
 %define svn 1949
 %define release %mkrel 1
 %define gtksharp 1.9.5
