@@ -68,21 +68,6 @@ mkdir -p %{buildroot}/`monodoc --get-sourcesdir`
 perl -pi -e "s^xMOZVERx^%mozver^g" %buildroot%_bindir/monodevelop
 
 # menu
-mkdir -p %{buildroot}/%{_menudir}
-cat > %{buildroot}/%{_menudir}/%{name} <<EOF
-?package(%{name}): \
-command="%{_bindir}/monodevelop" \
-title="MonoDevelop" \
-longtitle="Full-featured IDE for mono and Gtk#" \
-%if %mdkversion <= 1000
-section="More applications/Development/Development environments" \
-%else
-section="More Applications/Development/Development Environments" \
-%endif
-needs="x11" \
-icon="monodevelop.png" \
-startup_notify="yes" xdg="true"
-EOF
 
 #icons
 mkdir -p %buildroot{%_liconsdir,%_iconsdir,%_miconsdir}
@@ -107,7 +92,6 @@ convert -scale 16x16 %name.png %buildroot%_miconsdir/%name.png
 %doc AUTHORS ChangeLog README 
 %{_bindir}/mdtool
 %{_bindir}/monodevelop
-%{_menudir}/%{name}
 %{_prefix}/lib/monodevelop/
 %_mandir/man1/mdtool.1*
 %{_datadir}/applications/monodevelop.desktop
