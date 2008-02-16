@@ -1,5 +1,5 @@
 %define name monodevelop
-%define version 0.18.1
+%define version 0.19
 %define svn 1949
 %define release %mkrel 2
 %define gtksharp 1.9.5
@@ -18,7 +18,6 @@ Version: %{version}
 Release: %{release}
 Source: http://go-mono.com/sources/monodevelop/%{name}-%{version}.tar.bz2
 Patch1: monodevelop-0.16-firefox.patch
-Patch4: monodevelop-desktop-entry.patch
 URL: http://www.monodevelop.com/
 License: GPL
 Group: Development/Other
@@ -40,8 +39,7 @@ BuildRequires: monodoc >= %monodoc
 BuildRequires: xsp
 BuildRequires: mozilla-firefox-devel
 BuildRequires: perl-XML-Parser
-BuildRequires: ImageMagick
-BuildRequires: desktop-file-utils
+#BuildRequires: desktop-file-utils
 BuildRoot: %{_tmppath}/%{name}-%{version}-buildroot
 Requires(post): desktop-file-utils shared-mime-info
 Requires(postun): desktop-file-utils shared-mime-info
@@ -54,7 +52,6 @@ It was originally a port of SharpDevelop 0.98.
 %prep
 %setup -q
 %patch1 -p1 -b .firefox
-%patch4 -p1
 
 %build
 ./configure --prefix=%_prefix --libdir=%_libdir --enable-versioncontrol --enable-aspnet --enable-subversion --enable-aspnetedit
@@ -67,25 +64,19 @@ mkdir -p %{buildroot}/`monodoc --get-sourcesdir`
 #gw fix mozilla-firefox directory
 perl -pi -e "s^xMOZVERx^%mozver^g" %buildroot%_bindir/monodevelop
 
-# menu
-
-#icons
-mkdir -p %buildroot{%_liconsdir,%_iconsdir,%_miconsdir}
-ln -s %_datadir/pixmaps/%name.png %buildroot%_liconsdir/
-convert -scale 32x32 %name.png %buildroot%_iconsdir/%name.png
-convert -scale 16x16 %name.png %buildroot%_miconsdir/%name.png
-
 %find_lang %name
 
 %post
 %update_mime_database
 %update_desktop_database
 %update_menus
+%update_icon_cache hicolor
 
 %postun
 %clean_mime_database
 %clean_desktop_database
 %clean_menus
+%clean_icon_cache hicolor
 
 %files -f %name.lang
 %defattr(-,root,root) 
@@ -94,14 +85,12 @@ convert -scale 16x16 %name.png %buildroot%_miconsdir/%name.png
 %{_bindir}/monodevelop
 %{_prefix}/lib/monodevelop/
 %_mandir/man1/mdtool.1*
+%_mandir/man1/monodevelop.1*
 %{_datadir}/applications/monodevelop.desktop
 %{_datadir}/mime/packages/monodevelop.xml
-%{_datadir}/pixmaps/monodevelop.png
+%_datadir/icons/hicolor/*/apps/monodevelop.*
 %pkgconfigdir/monodevelop.pc
 %pkgconfigdir/monodevelop-core-addins.pc
-%_liconsdir/%name.png
-%_iconsdir/%name.png
-%_miconsdir/%name.png
 
 %clean
 rm -rf $RPM_BUILD_ROOT
