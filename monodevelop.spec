@@ -33,7 +33,7 @@ Requires: %mklibname svn 0
 BuildRequires:	mono-addins
 BuildRequires: mono-devel
 BuildRequires: gtksourceview-sharp >= %gtksourceview
-BuildRequires: gnome-sharp2 >= %gtksharp
+BuildRequires: gnome-sharp2-devel >= %gtksharp
 BuildRequires: glade-sharp2 >= %gtksharp
 BuildRequires: monodoc >= %monodoc
 BuildRequires: xsp
@@ -54,13 +54,13 @@ It was originally a port of SharpDevelop 0.98.
 %patch1 -p1 -b .firefox
 
 %build
-./configure --prefix=%_prefix --libdir=%_libdir --enable-versioncontrol --enable-aspnet --enable-subversion --enable-aspnetedit
+./configure --prefix=%_prefix --libdir=%_libdir --enable-versioncontrol --enable-aspnet --enable-subversion --enable-aspnetedit --enable-monoextensions --disable-update-mimedb --disable-update-desktopdb
 make
 
 %install
 rm -rf $RPM_BUILD_ROOT %name.lang
 mkdir -p %{buildroot}/`monodoc --get-sourcesdir`
-%makeinstall_std UPDATE_MIME_DB="#" pkgconfigdir=%pkgconfigdir packagedir=%buildroot%_prefix/lib/monodevelop/AddIns/AspNetEdit MOZILLA_HOME=%buildroot%_libdir/firefox-%mozver/
+%makeinstall_std pkgconfigdir=%pkgconfigdir packagedir=%buildroot%_prefix/lib/monodevelop/AddIns/AspNetEdit MOZILLA_HOME=%buildroot%_libdir/firefox-%mozver/
 #gw fix mozilla-firefox directory
 perl -pi -e "s^xMOZVERx^%mozver^g" %buildroot%_bindir/monodevelop
 
