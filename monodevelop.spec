@@ -5,11 +5,7 @@
 %define gtksharp 1.9.5
 %define gtksourceview 0.10
 %define monodoc 1.0
-%if %mdkversion >= 200600
 %define pkgconfigdir %_datadir/pkgconfig
-%else
-%define pkgconfigdir %_libdir/pkgconfig
-%endif
 %define mozver %(rpm -q --queryformat %%{VERSION} mozilla-firefox)
 
 Summary: Full-featured IDE for mono and Gtk#
