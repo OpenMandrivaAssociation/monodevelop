@@ -62,17 +62,21 @@ perl -pi -e "s^xMOZVERx^%mozver^g" %buildroot%_bindir/monodevelop
 
 %find_lang %name
 
+%if %mdkversion < 200900
 %post
 %update_mime_database
 %update_desktop_database
 %update_menus
 %update_icon_cache hicolor
+%endif
 
+%if %mdkversion < 200900
 %postun
 %clean_mime_database
 %clean_desktop_database
 %clean_menus
 %clean_icon_cache hicolor
+%endif
 
 %files -f %name.lang
 %defattr(-,root,root) 
