@@ -6,7 +6,10 @@
 %define gtksourceview 0.10
 %define monodoc 1.0
 %define pkgconfigdir %_datadir/pkgconfig
+%if %mdvver < 200900
 %define mozver %(rpm -q --queryformat %%{VERSION} mozilla-firefox)
+%endif
+%define xulrunner 1.9
 
 Summary: Full-featured IDE for mono and Gtk#
 Name: %{name}
@@ -22,7 +25,11 @@ Requires: gnome-sharp2 >= %gtksharp
 Requires: glade-sharp2 >= %gtksharp
 Requires: monodoc >= %monodoc
 Requires: shared-mime-info
+%if %mdvver < 200900
 Requires: libmozilla-firefox = %mozver
+%else
+Requires: %mklibname xulrunner %xulrunner
+%endif
 Requires: xterm
 #gw this is dllimported http://qa.mandriva.com/show_bug.cgi?id=34514
 Requires: %mklibname svn 0
@@ -33,8 +40,12 @@ BuildRequires: gnome-sharp2-devel >= %gtksharp
 BuildRequires: glade-sharp2 >= %gtksharp
 BuildRequires: monodoc >= %monodoc
 BuildRequires: xsp
+%if %mdvver < 200900
 BuildRequires: mozilla-firefox-devel
-BuildRequires: perl-XML-Parser
+%else
+BuildRequires: xulrunner-devel-unstable >= %xulrunner
+%endif
+BuildRequires: intltool
 #BuildRequires: desktop-file-utils
 BuildRoot: %{_tmppath}/%{name}-%{version}-buildroot
 Requires(post): desktop-file-utils shared-mime-info
@@ -47,7 +58,9 @@ It was originally a port of SharpDevelop 0.98.
 
 %prep
 %setup -q
+%if %mdvver < 200900
 %patch1 -p1 -b .firefox
+%endif
 
 %build
 ./configure --prefix=%_prefix --libdir=%_libdir --enable-versioncontrol --enable-aspnet --enable-subversion --enable-aspnetedit --enable-monoextensions --disable-update-mimedb --disable-update-desktopdb
