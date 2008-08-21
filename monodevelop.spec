@@ -1,7 +1,7 @@
 %define name monodevelop
 %define version 1.0
 %define svn 1949
-%define release %mkrel 6
+%define release %mkrel 7
 %define gtksharp 1.9.5
 %define gtksourceview 0.10
 %define monodoc 1.0
@@ -21,7 +21,7 @@ Patch1: monodevelop-0.16-firefox.patch
 URL: http://www.monodevelop.com/
 License: GPL
 Group: Development/Other
-Requires: gtksourceview-sharp >= %gtksourceview
+#Requires: gtksourceview-sharp >= %gtksourceview
 Requires: gnome-sharp2 >= %gtksharp
 Requires: glade-sharp2 >= %gtksharp
 Requires: monodoc >= %monodoc
@@ -36,7 +36,8 @@ Requires: xterm
 Requires: %mklibname svn 0
 BuildRequires:	mono-addins
 BuildRequires: mono-devel
-BuildRequires: gtksourceview-sharp >= %gtksourceview
+#BuildRequires: gtksourceview-sharp >= %gtksourceview
+BuildRequires: gnome-desktop-sharp-devel
 BuildRequires: gnome-sharp2-devel >= %gtksharp
 BuildRequires: glade-sharp2 >= %gtksharp
 BuildRequires: monodoc >= %monodoc
@@ -66,7 +67,7 @@ It was originally a port of SharpDevelop 0.98.
 %endif
 
 %build
-./configure --prefix=%_prefix --libdir=%_libdir --enable-versioncontrol --enable-aspnet --enable-subversion --enable-aspnetedit --enable-monoextensions --disable-update-mimedb --disable-update-desktopdb
+./configure --prefix=%_prefix --libdir=%_libdir --enable-versioncontrol --enable-aspnet --enable-subversion --enable-aspnetedit --enable-monoextensions --disable-update-mimedb --disable-update-desktopdb --enable-gtksourceview2
 make
 
 %install
