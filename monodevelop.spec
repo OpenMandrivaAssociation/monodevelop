@@ -1,7 +1,7 @@
 %define name monodevelop
-%define version 1.0
+%define version 1.9
 %define svn 1949
-%define release %mkrel 7
+%define release %mkrel 1
 %define gtksharp 1.9.5
 %define gtksourceview 0.10
 %define monodoc 1.0
@@ -18,8 +18,9 @@ Release: %{release}
 Source: http://go-mono.com/sources/monodevelop/%{name}-%{version}.tar.bz2
 Patch: monodevelop-1.0-libxul.patch
 Patch1: monodevelop-0.16-firefox.patch
+Patch2: monodevelop-1.9-headbuild.patch
 URL: http://www.monodevelop.com/
-License: GPL
+License: GPLv3+
 Group: Development/Other
 #Requires: gtksourceview-sharp >= %gtksourceview
 Requires: gnome-sharp2 >= %gtksharp
@@ -65,6 +66,7 @@ It was originally a port of SharpDevelop 0.98.
 %else
 %patch -p1 -b .libxul
 %endif
+%patch2 -p1
 
 %build
 ./configure --prefix=%_prefix --libdir=%_libdir --enable-versioncontrol --enable-aspnet --enable-subversion --enable-aspnetedit --enable-monoextensions --disable-update-mimedb --disable-update-desktopdb --enable-gtksourceview2
