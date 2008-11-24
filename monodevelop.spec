@@ -1,7 +1,7 @@
 %define name monodevelop
 %define version 1.9.1
 %define svn 1949
-%define release %mkrel 1
+%define release %mkrel 2
 %define gtksharp 1.9.5
 %define monodoc 1.0
 %define pkgconfigdir %_datadir/pkgconfig
@@ -65,8 +65,7 @@ It was originally a port of SharpDevelop 0.98.
 %endif
 
 %build
-./configure --prefix=%_prefix --libdir=%_libdir --enable-versioncontrol --enable-aspnet --enable-subversion --enable-aspnetedit --enable-monoextensions --disable-update-mimedb --disable-update-desktopdb 
-#--enable-gtksourceview2
+./configure --prefix=%_prefix --libdir=%_libdir --enable-versioncontrol --enable-aspnet --enable-subversion --enable-aspnetedit --enable-monoextensions --disable-update-mimedb --disable-update-desktopdb --enable-gtksourceview2
 make
 
 %install
