@@ -65,7 +65,8 @@ It was originally a port of SharpDevelop 0.98.
 %endif
 
 %build
-./configure --prefix=%_prefix --libdir=%_libdir --enable-versioncontrol --enable-aspnet --enable-subversion --enable-aspnetedit --enable-monoextensions --disable-update-mimedb --disable-update-desktopdb --enable-gtksourceview2
+./configure --prefix=%_prefix --libdir=%_libdir --enable-versioncontrol --enable-aspnet --enable-subversion --enable-aspnetedit --enable-monoextensions --disable-update-mimedb --disable-update-desktopdb 
+#--enable-gtksourceview2
 make
 
 %install
