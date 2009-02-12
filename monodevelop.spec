@@ -1,7 +1,7 @@
 %define name monodevelop
-%define version 1.9.1
+%define version 1.9.2
 %define svn 1949
-%define release %mkrel 2
+%define release %mkrel 1
 %define gtksharp 1.9.5
 %define monodoc 1.0
 %define pkgconfigdir %_datadir/pkgconfig
@@ -15,7 +15,7 @@ Name: %{name}
 Version: %{version}
 Release: %{release}
 Source: http://go-mono.com/sources/monodevelop/%{name}-%{version}.tar.bz2
-Patch: monodevelop-1.0-libxul.patch
+Patch: monodevelop-1.9.2-libxul.patch
 Patch1: monodevelop-0.16-firefox.patch
 URL: http://www.monodevelop.com/
 License: GPLv3+
@@ -62,6 +62,7 @@ It was originally a port of SharpDevelop 0.98.
 %patch1 -p1 -b .firefox
 %else
 %patch -p1 -b .libxul
+autoconf
 %endif
 
 %build
