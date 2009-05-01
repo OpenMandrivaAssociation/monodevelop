@@ -1,13 +1,10 @@
 %define name monodevelop
 %define version 2.0
 %define svn 1949
-%define release %mkrel 1
+%define release %mkrel 2
 %define gtksharp 1.9.5
 %define monodoc 1.0
 %define pkgconfigdir %_datadir/pkgconfig
-%if %mdvver < 200900
-%define mozver %(rpm -q --queryformat %%{VERSION} mozilla-firefox)
-%endif
 %define xulrunner 1.9
 
 Summary: Full-featured IDE for mono and Gtk#
@@ -15,7 +12,6 @@ Name: %{name}
 Version: %{version}
 Release: %{release}
 Source: http://go-mono.com/sources/monodevelop/%{name}-%{version}.tar.bz2
-Patch: monodevelop-1.9.2-libxul.patch
 Patch1: monodevelop-0.16-firefox.patch
 URL: http://www.monodevelop.com/
 License: GPLv3+
@@ -25,11 +21,7 @@ Requires: gnome-sharp2 >= %gtksharp
 Requires: glade-sharp2 >= %gtksharp
 Requires: monodoc >= %monodoc
 Requires: shared-mime-info
-%if %mdvver < 200900
-Requires: libmozilla-firefox = %mozver
-%else
 Requires: %mklibname xulrunner %xulrunner
-%endif
 Requires: xterm
 #gw this is dllimported http://qa.mandriva.com/show_bug.cgi?id=34514
 Requires: %mklibname svn 0
@@ -40,11 +32,7 @@ BuildRequires: gnome-sharp2-devel >= %gtksharp
 BuildRequires: glade-sharp2 >= %gtksharp
 BuildRequires: monodoc >= %monodoc
 BuildRequires: xsp
-%if %mdvver < 200900
-BuildRequires: mozilla-firefox-devel
-%else
 BuildRequires: xulrunner-devel-unstable >= %xulrunner
-%endif
 BuildRequires: intltool
 #BuildRequires: desktop-file-utils
 BuildRoot: %{_tmppath}/%{name}-%{version}-buildroot
@@ -58,12 +46,8 @@ It was originally a port of SharpDevelop 0.98.
 
 %prep
 %setup -q
-%if %mdvver < 200900
-%patch1 -p1 -b .firefox
-%else
 %patch -p1 -b .libxul
 autoconf
-%endif
 
 %build
 ./configure --prefix=%_prefix --libdir=%_libdir --enable-versioncontrol --enable-aspnet --enable-subversion --enable-aspnetedit --enable-monoextensions --disable-update-mimedb --disable-update-desktopdb 
