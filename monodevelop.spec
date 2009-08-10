@@ -1,7 +1,7 @@
 %define name monodevelop
 %define version 2.0
 %define svn 1949
-%define release %mkrel 2
+%define release %mkrel 3
 %define gtksharp 1.9.5
 %define monodoc 1.0
 %define pkgconfigdir %_datadir/pkgconfig
@@ -62,6 +62,12 @@ mkdir -p %{buildroot}/`monodoc --get-sourcesdir`
 perl -pi -e "s^xMOZVERx^%mozver^g" %buildroot%_bindir/monodevelop
 
 %find_lang %name
+
+#gw replace bundled nunit by symlinks:
+cd %buildroot%_prefix/lib/monodevelop/AddIns/NUnit
+for x in nunit.*.dll; do
+    ln -sf %_prefix/lib/mono/2.0/$x .
+done
 
 %if %mdkversion < 200900
 %post
