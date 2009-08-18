@@ -1,11 +1,15 @@
 %define name monodevelop
 %define version 2.0
 %define svn 1949
-%define release %mkrel 3
+%define release %mkrel 4
 %define gtksharp 1.9.5
 %define monodoc 1.0
 %define pkgconfigdir %_datadir/pkgconfig
+%if %mdvver >= 201000
+%define xulrunner 1.9.1.2
+%else
 %define xulrunner 1.9
+%endif
 
 Summary: Full-featured IDE for mono and Gtk#
 Name: %{name}
@@ -32,7 +36,11 @@ BuildRequires: gnome-sharp2-devel >= %gtksharp
 BuildRequires: glade-sharp2 >= %gtksharp
 BuildRequires: monodoc >= %monodoc
 BuildRequires: xsp
+%if %mdvver >= 20100
+BuildRequires: xulrunner-devel
+%else
 BuildRequires: xulrunner-devel-unstable >= %xulrunner
+%endif
 BuildRequires: intltool
 #BuildRequires: desktop-file-utils
 BuildRoot: %{_tmppath}/%{name}-%{version}-buildroot
