@@ -1,14 +1,12 @@
 %define name monodevelop
-%define version 2.0
+%define version 2.1.0
 %define svn 1949
-%define release %mkrel 5
+%define release %mkrel 6
 %define gtksharp 1.9.5
 %define monodoc 1.0
 %define pkgconfigdir %_datadir/pkgconfig
-%if %mdvver >= 201000
-%define xulrunner 1.9.1.2
-%else
-%define xulrunner 1.9
+%if %mdvver < 201000
+%define xulrunner_version 1.9
 %endif
 
 Summary: Full-featured IDE for mono and Gtk#
@@ -25,7 +23,7 @@ Requires: gnome-sharp2 >= %gtksharp
 Requires: glade-sharp2 >= %gtksharp
 Requires: monodoc >= %monodoc
 Requires: shared-mime-info
-Requires: %mklibname xulrunner %xulrunner
+Requires: %mklibname xulrunner %xulrunner_version
 Requires: xterm
 #gw this is dllimported http://qa.mandriva.com/show_bug.cgi?id=34514
 Requires: %mklibname svn 0
@@ -36,10 +34,10 @@ BuildRequires: gnome-sharp2-devel >= %gtksharp
 BuildRequires: glade-sharp2 >= %gtksharp
 BuildRequires: monodoc >= %monodoc
 BuildRequires: xsp
-%if %mdvver >= 20100
+%if %mdvver >= 201000
 BuildRequires: xulrunner-devel
 %else
-BuildRequires: xulrunner-devel-unstable >= %xulrunner
+BuildRequires: xulrunner-devel-unstable >= %xulrunner_version
 %endif
 BuildRequires: intltool
 #BuildRequires: desktop-file-utils
