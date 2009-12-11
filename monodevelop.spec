@@ -1,5 +1,5 @@
 %define name monodevelop
-%define version 2.1.1
+%define version 2.1.2
 %define svn 1949
 %define release %mkrel 1
 %define gtksharp 1.9.5
@@ -23,10 +23,11 @@ Requires: gnome-sharp2 >= %gtksharp
 Requires: glade-sharp2 >= %gtksharp
 Requires: monodoc >= %monodoc
 Requires: shared-mime-info
-Requires: %mklibname xulrunner %xulrunner_version
+Requires: libxulrunner >= %xulrunner_version
 Requires: xterm
 #gw this is dllimported http://qa.mandriva.com/show_bug.cgi?id=34514
-Requires: %mklibname svn 0
+#Requires: %mklibname svn 0
+Requires: subversion
 BuildRequires:	mono-addins
 BuildRequires: mono-devel
 BuildRequires: gnome-desktop-sharp-devel
@@ -40,10 +41,11 @@ BuildRequires: xulrunner-devel
 BuildRequires: xulrunner-devel-unstable >= %xulrunner_version
 %endif
 BuildRequires: intltool
-#BuildRequires: desktop-file-utils
+BuildArch: noarch
 BuildRoot: %{_tmppath}/%{name}-%{version}-buildroot
 Requires(post): desktop-file-utils shared-mime-info
 Requires(postun): desktop-file-utils shared-mime-info
+%define _requires_exceptions ^libg.*\\|lib64g.*
 
 %description 
 This is MonoDevelop which is intended to be a full-featured
@@ -56,16 +58,14 @@ It was originally a port of SharpDevelop 0.98.
 autoconf
 
 %build
-./configure --prefix=%_prefix --libdir=%_libdir --enable-versioncontrol --enable-aspnet --enable-subversion --enable-aspnetedit --enable-monoextensions --disable-update-mimedb --disable-update-desktopdb 
+./configure --prefix=%_prefix --libdir=%_prefix/lib --enable-versioncontrol --enable-aspnet --enable-subversion --enable-aspnetedit --enable-monoextensions --disable-update-mimedb --disable-update-desktopdb 
 #--enable-gtksourceview2
 make
 
 %install
 rm -rf $RPM_BUILD_ROOT %name.lang
 mkdir -p %{buildroot}/`monodoc --get-sourcesdir`
-%makeinstall_std pkgconfigdir=%pkgconfigdir packagedir=%buildroot%_prefix/lib/monodevelop/AddIns/AspNetEdit MOZILLA_HOME=%buildroot%_libdir/firefox-%mozver/
-#gw fix mozilla-firefox directory
-perl -pi -e "s^xMOZVERx^%mozver^g" %buildroot%_bindir/monodevelop
+%makeinstall_std pkgconfigdir=%pkgconfigdir packagedir=%buildroot%_prefix/lib/monodevelop/AddIns/AspNetEdit MOZILLA_HOME=%buildroot%_prefix/lib/firefox-%mozver/
 
 %find_lang %name
 
