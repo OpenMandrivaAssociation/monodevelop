@@ -16,7 +16,7 @@ Release: %{release}
 Source: http://go-mono.com/sources/monodevelop/%{name}-%{version}.tar.bz2
 Patch: monodevelop-1.9.2-libxul.patch
 URL: http://www.monodevelop.com/
-License: GPLv3+
+License: LGPLv2
 Group: Development/Other
 #Requires: gtksourceview-sharp >= %gtksourceview
 Requires: gnome-sharp2 >= %gtksharp
