@@ -1,7 +1,7 @@
 %define name monodevelop
 %define version 2.4
 %define svn 1949
-%define release %mkrel 1
+%define release %mkrel 2
 %define gtksharp 1.9.5
 %define monodoc 1.0
 %define pkgconfigdir %_datadir/pkgconfig
@@ -45,7 +45,7 @@ BuildArch: noarch
 BuildRoot: %{_tmppath}/%{name}-%{version}-buildroot
 Requires(post): desktop-file-utils shared-mime-info
 Requires(postun): desktop-file-utils shared-mime-info
-%define _requires_exceptions ^libg.*\\|lib64g.*
+%define _requires_exceptions ^libg.*\\|lib64g.*\\|libp.*\\|lib64p.*
 
 %description 
 This is MonoDevelop which is intended to be a full-featured
