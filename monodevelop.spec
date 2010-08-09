@@ -28,8 +28,7 @@ Requires: xterm
 #gw this is dllimported http://qa.mandriva.com/show_bug.cgi?id=34514
 #Requires: %mklibname svn 0
 Requires: subversion
-BuildRequires:	mono-addins
-BuildRequires: mono-devel
+BuildRequires:	mono-addins-devel
 BuildRequires: gnome-desktop-sharp-devel
 BuildRequires: gnome-sharp2-devel >= %gtksharp
 BuildRequires: glade-sharp2 >= %gtksharp
