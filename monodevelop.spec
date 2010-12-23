@@ -33,7 +33,11 @@ BuildRequires: gnome-desktop-sharp-devel
 BuildRequires: gnome-sharp2-devel >= %gtksharp
 BuildRequires: glade-sharp2 >= %gtksharp
 BuildRequires: monodoc >= %monodoc
+%if %mdvver >= 201100
+BuildRequires: xsp-devel
+%else
 BuildRequires: xsp
+%endif
 %if %mdvver >= 201000
 BuildRequires: xulrunner-devel
 %else
