@@ -1,6 +1,5 @@
 %define name monodevelop
-%define version 2.4.1
-%define svn 1949
+%define version 2.4.2
 %define release %mkrel 1
 %define gtksharp 1.9.5
 %define monodoc 1.0
@@ -25,8 +24,6 @@ Requires: monodoc >= %monodoc
 Requires: shared-mime-info
 Requires: libxulrunner >= %xulrunner_version
 Requires: xterm
-#gw this is dllimported http://qa.mandriva.com/show_bug.cgi?id=34514
-#Requires: %mklibname svn 0
 Requires: subversion
 BuildRequires:	mono-addins-devel
 BuildRequires: gnome-desktop-sharp-devel
