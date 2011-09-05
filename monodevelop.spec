@@ -1,4 +1,4 @@
-$#define name monodevelop
+%define name monodevelop
 %define version 2.4.2
 %define release %mkrel 1
 %define gtksharp 1.9.5
@@ -9,7 +9,7 @@ $#define name monodevelop
 %endif
 
 Summary:	Full-featured IDE for mono and Gtk#
-Name:		monodevelop
+Name:		%{name}
 Version:	%{version}
 Release:	%{release}
 Source:		http://go-mono.com/sources/monodevelop/%{name}-%{version}.tar.bz2
