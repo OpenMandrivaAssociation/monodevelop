@@ -1,4 +1,4 @@
-%define name monodevelop
+#define name monodevelop
 %define version 2.4.2
 %define release %mkrel 1
 %define gtksharp 1.9.5
@@ -8,43 +8,44 @@
 %define xulrunner_version 1.9
 %endif
 
-Summary: Full-featured IDE for mono and Gtk#
-Name: %{name}
-Version: %{version}
-Release: %{release}
-Source: http://go-mono.com/sources/monodevelop/%{name}-%{version}.tar.bz2
-Patch: monodevelop-1.9.2-libxul.patch
-URL: http://www.monodevelop.com/
-License: LGPLv2
-Group: Development/Other
-#Requires: gtksourceview-sharp >= %gtksourceview
-Requires: gnome-sharp2 >= %gtksharp
-Requires: glade-sharp2 >= %gtksharp
-Requires: monodoc >= %monodoc
-Requires: shared-mime-info
-Requires: libxulrunner >= %xulrunner_version
-Requires: xterm
-Requires: subversion
+Summary:	Full-featured IDE for mono and Gtk#
+Name:		monodevelop
+Version:	%{version}
+Release:	%{release}
+Source:		http://go-mono.com/sources/monodevelop/%{name}-%{version}.tar.bz2
+Patch:		monodevelop-1.9.2-libxul.patch
+Patch1:		%{name}.desktop.patch
+URL:		http://www.monodevelop.com/
+License:	LGPLv2
+Group:		Development/Other
+#Requires:	gtksourceview-sharp >= %gtksourceview
+Requires:	gnome-sharp2 >= %gtksharp
+Requires:	glade-sharp2 >= %gtksharp
+Requires:	monodoc >= %monodoc
+Requires:	shared-mime-info
+Requires:	libxulrunner >= %xulrunner_version
+Requires:	xterm
+Requires:	subversion
 BuildRequires:	mono-addins-devel
-BuildRequires: gnome-desktop-sharp-devel
-BuildRequires: gnome-sharp2-devel >= %gtksharp
-BuildRequires: glade-sharp2 >= %gtksharp
-BuildRequires: monodoc >= %monodoc
+BuildRequires:	gnome-desktop-sharp-devel
+BuildRequires:	gnome-sharp2-devel >= %gtksharp
+BuildRequires:	glade-sharp2 >= %gtksharp
+BuildRequires:	monodoc >= %monodoc
 %if %mdvver >= 201100
-BuildRequires: xsp-devel
+BuildRequires:	xsp-devel
 %else
-BuildRequires: xsp
+BuildRequires:	xsp
 %endif
 %if %mdvver >= 201000
-BuildRequires: xulrunner-devel
+BuildRequires:	xulrunner-devel
 %else
-BuildRequires: xulrunner-devel-unstable >= %xulrunner_version
+BuildRequires:	xulrunner-devel-unstable >= %xulrunner_version
 %endif
-BuildRequires: intltool
-BuildArch: noarch
-BuildRoot: %{_tmppath}/%{name}-%{version}-buildroot
-Requires(post): desktop-file-utils shared-mime-info
-Requires(postun): desktop-file-utils shared-mime-info
+BuildRequires:	intltool
+BuildArch:	noarch
+BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
+Requires(post):		desktop-file-utils shared-mime-info
+Requires(postun):	desktop-file-utils shared-mime-info
 %define _requires_exceptions ^libg.*\\|lib64g.*\\|libp.*\\|lib64p.*\\|liba.*\\|lib64a.*
 
 %description 
@@ -55,6 +56,7 @@ It was originally a port of SharpDevelop 0.98.
 %prep
 %setup -q
 %patch -p1 -b .libxul
+%patch1 -p0
 autoconf
 
 %build
