@@ -1,4 +1,4 @@
-%define name monodevelop
+#define name monodevelop
 %define version 2.4.2
 %define release %mkrel 1
 %define gtksharp 1.9.5
@@ -9,7 +9,7 @@
 %endif
 
 Summary:	Full-featured IDE for mono and Gtk#
-Name:		%{name}
+Name:		monodevelop
 Version:	%{version}
 Release:	%{release}
 Source:		http://go-mono.com/sources/monodevelop/%{name}-%{version}.tar.bz2
@@ -26,7 +26,12 @@ Requires:	shared-mime-info
 Requires:	libxulrunner >= %xulrunner_version
 Requires:	xterm
 Requires:	subversion
+%if %mdvver >= 201100
 BuildRequires:	mono-addins-devel
+%else
+BuildRequires:	libmono-devel
+BuildRequires:	mono-addins
+%endif
 BuildRequires:	gnome-desktop-sharp-devel
 BuildRequires:	gnome-sharp2-devel >= %gtksharp
 BuildRequires:	glade-sharp2 >= %gtksharp
