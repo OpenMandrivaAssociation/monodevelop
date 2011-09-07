@@ -1,19 +1,15 @@
 #define name monodevelop
-%define version 2.4.2
+%define version 2.6
 %define release %mkrel 1
 %define gtksharp 1.9.5
 %define monodoc 1.0
 %define pkgconfigdir %_datadir/pkgconfig
-%if %mdvver < 201000
-%define xulrunner_version 1.9
-%endif
 
 Summary:	Full-featured IDE for mono and Gtk#
 Name:		monodevelop
 Version:	%{version}
 Release:	%{release}
-Source:		http://go-mono.com/sources/monodevelop/%{name}-%{version}.tar.bz2
-Patch:		monodevelop-1.9.2-libxul.patch
+Source:		http://download.mono-project.com/monodevelop/source/%{name}-%{version}.tar.gz
 Patch1:		%{name}.desktop.patch
 URL:		http://www.monodevelop.com/
 License:	LGPLv2
@@ -23,7 +19,6 @@ Requires:	gnome-sharp2 >= %gtksharp
 Requires:	glade-sharp2 >= %gtksharp
 Requires:	monodoc >= %monodoc
 Requires:	shared-mime-info
-Requires:	libxulrunner >= %xulrunner_version
 Requires:	xterm
 Requires:	subversion
 %if %mdvver >= 201100
@@ -41,11 +36,6 @@ BuildRequires:	xsp-devel
 %else
 BuildRequires:	xsp
 %endif
-%if %mdvver >= 201000
-BuildRequires:	xulrunner-devel
-%else
-BuildRequires:	xulrunner-devel-unstable >= %xulrunner_version
-%endif
 BuildRequires:	intltool
 BuildArch:	noarch
 BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
@@ -60,12 +50,11 @@ It was originally a port of SharpDevelop 0.98.
 
 %prep
 %setup -q
-%patch -p1 -b .libxul
+
 %patch1 -p0
-autoconf
 
 %build
-./configure --prefix=%_prefix --libdir=%_prefix/lib --enable-versioncontrol --enable-aspnet --enable-subversion --enable-aspnetedit --enable-monoextensions --disable-update-mimedb --disable-update-desktopdb 
+./configure --prefix=%_prefix --libdir=%_prefix/lib --enable-subversion --enable-monoextensions --disable-update-mimedb --disable-update-desktopdb 
 #--enable-gtksourceview2
 make
 
