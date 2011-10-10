@@ -1,5 +1,5 @@
 #define name monodevelop
-%define version 2.6
+%define version 2.8
 %define release %mkrel 1
 %define gtksharp 1.9.5
 %define monodoc 1.0
@@ -9,7 +9,7 @@ Summary:	Full-featured IDE for mono and Gtk#
 Name:		monodevelop
 Version:	%{version}
 Release:	%{release}
-Source:		http://download.mono-project.com/monodevelop/source/%{name}-%{version}.tar.gz
+Source:		http://download.mono-project.com/sources/%name/%name-%version.tar.bz2
 Patch1:		%{name}.desktop.patch
 URL:		http://www.monodevelop.com/
 License:	LGPLv2
