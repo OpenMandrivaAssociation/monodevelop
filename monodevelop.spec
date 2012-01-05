@@ -1,5 +1,5 @@
 #define name monodevelop
-%define version 2.8.2
+%define version 2.8.5
 %define release %mkrel 1
 %define gtksharp 1.9.5
 %define monodoc 1.0
@@ -21,10 +21,10 @@ Requires:	monodoc >= %monodoc
 Requires:	shared-mime-info
 Requires:	xterm
 Requires:	subversion
+BuildRequires:	libmono-devel
 %if %mdvver >= 201100
 BuildRequires:	mono-addins-devel
 %else
-BuildRequires:	libmono-devel
 BuildRequires:	mono-addins
 %endif
 BuildRequires:	gnome-desktop-sharp-devel
