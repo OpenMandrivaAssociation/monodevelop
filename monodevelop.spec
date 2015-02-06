@@ -1,6 +1,6 @@
 %define	name monodevelop
 %define	version  3.0.3.5
-%define	release  %mkrel 1
+%define release  2
 %define	gtksharp 1.9.5
 %define	monodoc  1.0
 %define	pkgconfigdir %_datadir/pkgconfig
