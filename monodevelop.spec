@@ -10,6 +10,7 @@ Name:		%{name}
 Version:	%{version}
 Release:	%{release}
 Source0:	http://download.mono-project.com/sources/monodevelop/%{name}-%{version}.tar.bz2
+Source100:	%{name}.rpmlintrc
 Patch0:		link_system_nunit.patch
 Patch1:		%{name}-3.0.3.2-md-gettext.patch
 URL:		http://www.monodevelop.com/
@@ -72,7 +73,7 @@ make
 %install
 rm -rf %{buildroot} %name.lang
 mkdir -p %{buildroot}/`monodoc --get-sourcesdir`
-%makeinstall_std pkgconfigdir=%pkgconfigdir packagedir=%buildroot%_prefix/lib/monodevelop/AddIns/AspNetEdit MOZILLA_HOME=%buildroot%_prefix/lib/firefox-%mozver/
+make install DESTDIR=%{buildroot} pkgconfigdir=%pkgconfigdir packagedir=%buildroot%_prefix/lib/monodevelop/AddIns/AspNetEdit MOZILLA_HOME=%buildroot%_prefix/lib/firefox-%mozver/
 
 desktop-file-install --dir %buildroot%_datadir/applications \
   %buildroot%_datadir/applications/*.desktop
