@@ -27,6 +27,7 @@ Requires:	xterm
 Requires:	subversion
 Requires:	git
 Requires:	xsp
+Requires:	libgnome2
 BuildRequires:	pkgconfig(gconf-sharp-2.0) >= 2.12.8
 BuildRequires:	pkgconfig(glade-sharp-2.0) >= 2.12.8
 BuildRequires:	pkgconfig(glib-sharp-2.0) >= 2.12.8
@@ -51,7 +52,7 @@ Conflicts:	%{name} <= 3.0.3.2-2
 Obsoletes:	%{name} <= 3.0.3.2-2
 
 BuildArch:     noarch
-%define _requires_exceptions ^libg.*\\|lib64g.*\\|libp.*\\|lib64p.*\\|liba.*\\|lib64a.*
+%define __noautoreq ^libg.*\\|lib64g.*\\|libp.*\\|lib64p.*\\|liba.*\\|lib64a.*
 
 %description 
 This is MonoDevelop which is intended to be a full-featured
