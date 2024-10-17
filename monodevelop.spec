@@ -13,7 +13,7 @@ Source0:	http://download.mono-project.com/sources/monodevelop/%{name}-%{version}
 Source100:	%{name}.rpmlintrc
 Patch0:		link_system_nunit.patch
 Patch1:		%{name}-3.0.3.2-md-gettext.patch
-URL:		http://www.monodevelop.com/
+URL:		https://www.monodevelop.com/
 License:	LGPLv2
 Group:		Development/Other
 #Requires: gtksourceview-sharp >= % gtksourceview
