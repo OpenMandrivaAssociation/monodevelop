@@ -29,6 +29,11 @@ Requires:	subversion
 Requires:	git
 Requires:	xsp
 Requires:	libgnome2
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires:	pkgconfig(gconf-sharp-2.0) >= 2.12.8
 BuildRequires:	pkgconfig(glade-sharp-2.0) >= 2.12.8
 BuildRequires:	pkgconfig(glib-sharp-2.0) >= 2.12.8
